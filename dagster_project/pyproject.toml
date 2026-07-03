@@ -1,0 +1,14 @@
+[tool.dagster]
+module_name = "dagster_project.definitions"
+
+[project]
+name = "dagster_project"
+version = "0.1.0"
+requires-python = ">=3.10"
+dependencies = [
+    "dagster>=1.7.0",
+    "dagster-webserver>=1.7.0",
+    "dagster-dbt>=0.23.0",
+    "dbt-duckdb>=1.8.0",
+    "dlt[duckdb]>=0.5.0",
+]

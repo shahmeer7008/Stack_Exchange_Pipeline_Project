@@ -1,0 +1,54 @@
+version: 2
+
+sources:
+  - name: raw_stack_exchange_data
+    description: "Raw Stack Exchange tables loaded into the warehouse."
+    tables:
+      - name: users
+        description: "Raw users data from the Stack Exchange dataset."
+        columns:
+          - name: user_id
+            description: "Unique identifier for a user."
+            tests:
+              - not_null
+              - unique
+      - name: questions
+        description: "Raw questions data from the Stack Exchange dataset."
+        columns:
+          - name: question_id
+            description: "Unique identifier for a question."
+            tests:
+              - not_null
+              - unique
+      - name: answers
+        description: "Raw answers data from the Stack Exchange dataset."
+        columns:
+          - name: answer_id
+            description: "Unique identifier for an answer."
+            tests:
+              - not_null
+              - unique
+      - name: comments
+        description: "Raw comments data from the Stack Exchange dataset."
+        columns:
+          - name: comment_id
+            description: "Unique identifier for a comment."
+            tests:
+              - not_null
+              - unique
+      - name: tags
+        description: "Raw tags data from the Stack Exchange dataset."
+        columns:
+          - name: name
+            description: "Tag name in the raw dataset."
+            tests:
+              - not_null
+              - unique
+      - name: badges
+        description: "Raw badges data from the Stack Exchange dataset."
+        columns:
+          - name: badge_id
+            description: "Unique identifier for a badge award."
+            tests:
+              - not_null
+              - unique

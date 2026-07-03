@@ -1,0 +1,106 @@
+version: 2
+
+models:
+  - name: stg_users
+    description: "Staged users from raw source, light casting and renaming."
+    columns:
+      - name: user_id
+        description: "Primary user identifier"
+        tests: [not_null, unique]
+
+  - name: stg_questions
+    description: "Staged questions from raw source."
+    columns:
+      - name: question_id
+        tests: [not_null, unique]
+
+  - name: stg_answers
+    description: "Staged answers from raw source."
+    columns:
+      - name: answer_id
+        tests: [not_null, unique]
+      - name: question_id
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_questions')
+                field: question_id
+      - name: owner_user_id
+        tests:
+          - relationships:
+              arguments:
+                to: ref('stg_users')
+                field: user_id
+
+  - name: stg_comments
+    description: "Staged comments from raw source."
+    columns:
+      - name: comment_id
+        tests: [not_null, unique]
+
+  - name: stg_tags
+    description: "Staged tags from raw source."
+    columns:
+      - name: tag_name
+        tests: [not_null, unique]
+
+  - name: stg_badges
+    description: "Staged badges from raw source."
+    columns:
+      - name: badge_id
+        tests: [not_null, unique]
+      - name: user_id
+        tests:
+          - relationships:
+              arguments:
+                to: ref('stg_users')
+                field: user_id
+
+  - name: int_answer_metrics
+    description: "Intermediate aggregates of answers per question."
+    columns:
+      - name: question_id
+        tests: [not_null]
+
+  - name: int_question_metrics
+    description: "Question-level metrics joining answers/comments."
+
+  - name: int_user_stats
+    description: "User-level aggregates for rankings."
+    columns:
+      - name: user_id
+        tests: [not_null, unique]
+
+  - name: int_tag_activity
+    description: "Tag-level aggregated engagement metrics."
+
+  - name: int_time_to_first_answer
+    description: "Per-question time-to-first-answer and tag mapping."
+
+  - name: int_daily_activity
+    description: "Daily counts of questions, answers, comments, badges."
+
+  - name: mart_tag_engagement
+    description: "Mart answering Q1: tags ranked by engagement score."
+    columns:
+      - name: tag_name
+        tests: [not_null]
+
+  - name: mart_top_users
+    description: "Mart answering Q2: top contributing users."
+    columns:
+      - name: user_id
+        tests: [not_null]
+
+  - name: mart_time_to_first_answer
+    description: "Mart answering Q3: average time-to-first-answer per tag and month."
+
+  - name: mart_activity_volume
+    description: "Mart answering Q4: daily/weekly volume of events."
+
+  - name: mart_unanswered_high_view
+    description: "Mart answering Q5: high-view unanswered or low answer-to-view questions."
+
+  - name: mart_badge_distribution
+    description: "Mart answering Q6: daily badge class distribution."

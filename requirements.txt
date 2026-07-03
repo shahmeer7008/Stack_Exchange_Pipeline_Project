@@ -1,0 +1,15 @@
+# --- dlt (Part A: extraction & loading) ---
+dlt[duckdb]>=0.5.0
+requests>=2.31.0
+dlt[snowflake]>=0.5.0
+# --- Dagster (Part B: orchestration) ---
+dagster>=1.7.0
+dagster-webserver>=1.7.0
+dagster-dbt>=0.23.0
+
+# --- dbt (Part C: transformation & modeling) ---
+dbt-core>=1.8.0
+dbt-duckdb>=1.8.0
+
+# --- shared ---
+duckdb>=0.10.0
