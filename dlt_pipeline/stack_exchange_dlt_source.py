@@ -8,7 +8,6 @@ from dlt.sources.helpers import requests
 logger = logging.getLogger(__name__)
 
 BASE_URL = "https://api.stackexchange.com/2.3"
-API_KEY = os.getenv("STACKEXCHANGE_API_KEY")
 
 MAX_PAGES = 10
 
@@ -62,8 +61,7 @@ def fetch_resource(resource_name, from_date=0):
         if RESOURCE_CONFIG[resource_name]["cursor"]:
             params["fromdate"] = from_date
 
-        if API_KEY:
-            params["key"] = API_KEY
+        
 
         response = requests.get(
             f"{BASE_URL}/{resource_name}",
@@ -130,12 +128,12 @@ def stack_exchange_source():
 
     yield make_resource("users")
 
-    # yield make_resource("questions")
+    yield make_resource("questions")
 
-    # yield make_resource("answers")
+    yield make_resource("answers")
 
-    # yield make_resource("comments")
+    yield make_resource("comments")
 
-    # yield make_resource("badges")
+    yield make_resource("badges")
 
-    # yield make_resource("tags")
+    yield make_resource("tags")

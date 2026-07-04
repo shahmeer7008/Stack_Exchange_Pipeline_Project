@@ -2,7 +2,6 @@ import logging
 import dlt
 from pathlib import Path
 from .stack_exchange_dlt_source import stack_exchange_source
-import duckdb
 
 pipeline_dir = Path(__file__).parent / ".dlt"
 logging.basicConfig(level=logging.DEBUG)
@@ -16,7 +15,8 @@ def run_stack_exchange_pipeline():
     )
 
 
-
+#I  was facing issue to debug failure in pipeline so I have added this logging
+# to log errors and pipeline run status
     try:
         print("Running pipeline...")
         load_info = pipeline.run(stack_exchange_source())
