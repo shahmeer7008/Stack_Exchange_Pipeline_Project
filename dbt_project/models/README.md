@@ -1,6 +1,13 @@
-Marts and mapping to business questions
+I established a dlt  pipeline and scheduled it on dagster.For setting Karachi Timezone ,I did :
 
-This folder contains intermediate models and marts that implement answers to the project's business questions.
+stackexchange_daily_schedule = ScheduleDefinition(
+    name="stackexchange_daily_6_30pm_pkt",
+    job=stackexchange_job,
+    cron_schedule="30 18 * * *",
+    execution_timezone="Asia/Karachi",
+)
+
+On first load, pipeline histroically loaded data and then incremntal is implemented with proper pagination.
 
 Mapping of marts to business questions:
 
@@ -24,8 +31,8 @@ Mapping of marts to business questions:
 
 Design choices:
 - One staging model per raw source was maintained (already implemented in `models/staging`).
-- Intermediate models perform focused aggregations/joins and are intentionally small and composable.
-- Tag-question joins use a name-match (`tags_raw ILIKE '%tag_name%'`) for portability across adapters; for large datasets, replace with a normalized tag-question mapping (explode tags) for performance.
+- Separate Intermediate and Marts models for each business question.Intermediate Models perform focused aggregations/joins and are intentionally small and composable and Marts models provide final results
+- 
 
 Running:
 
@@ -33,5 +40,3 @@ Running:
 cd Stack_Exchange_Mini_Project
 dbt run --models +marts
 ```
-
-If you'd like, I can add a more efficient tag-explode intermediate model using adapter-specific functions.

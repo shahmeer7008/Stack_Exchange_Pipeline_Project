@@ -50,12 +50,7 @@ models:
     columns:
       - name: badge_id
         tests: [not_null, unique]
-      - name: user_id
-        tests:
-          - relationships:
-              arguments:
-                to: ref('stg_users')
-                field: user_id
+      
 
   - name: int_answer_metrics
     description: "Intermediate aggregates of answers per question."

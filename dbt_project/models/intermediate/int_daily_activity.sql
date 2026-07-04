@@ -1,7 +1,7 @@
 -- Intermediate: daily activity counts (questions/answers/comments/badges)
 {{ config(materialized='view') }}
 
-with q as (
+with questions as (
     select
         date_trunc('day', creation_date) as day,
         count(*) as new_questions
@@ -9,7 +9,7 @@ with q as (
     group by 1
 ),
 
-a as (
+answers as (
     select
         date_trunc('day', creation_date) as day,
         count(*) as new_answers
@@ -17,7 +17,7 @@ a as (
     group by 1
 ),
 
-c as (
+comments as (
     select
         date_trunc('day', creation_date) as day,
         count(*) as new_comments
@@ -25,7 +25,7 @@ c as (
     group by 1
 ),
 
-b as (
+badges as (
     select
         date_trunc('day', award_date) as day,
         count(*) as new_badges
@@ -36,22 +36,22 @@ b as (
 activity as (
 
     select day, new_questions, 0 as new_answers, 0 as new_comments, 0 as new_badges
-    from q
+    from questions
 
     union all
 
     select day, 0, new_answers, 0, 0
-    from a
+    from answers
 
     union all
 
     select day, 0, 0, new_comments, 0
-    from c
+    from comments
 
     union all
 
     select day, 0, 0, 0, new_badges
-    from b
+    from badges
 
 )
 
