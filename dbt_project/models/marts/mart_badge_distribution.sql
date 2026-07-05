@@ -2,11 +2,10 @@
 {{ config(materialized='table') }}
 
 select
-  badge_type as badge_class,
-  date_trunc('day', award_date) as day,
+  badge_name as badge,
   count(*) as badges_awarded
 
 from {{ ref('stg_badges') }}
 
-group by 1, 2
-order by 2 desc, 1 asc
+group by 1
+order by  1 asc

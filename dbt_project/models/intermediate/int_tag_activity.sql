@@ -25,7 +25,7 @@ select
   
 from {{ ref('stg_tags') }} as t
 left join {{ ref('stg_questions') }} as q 
-on t.tag_name ilike concat('%', q.tags_raw, '%')
+on q.tags_raw ilike concat('%', t.tag_name, '%')
 
 left join question_answers as qa 
 on q.question_id = qa.question_id

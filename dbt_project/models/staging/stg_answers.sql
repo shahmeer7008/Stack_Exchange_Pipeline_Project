@@ -10,5 +10,6 @@ select answer_id,
            when creation_date is null then null
            else to_timestamp(creation_date)
        end as creation_date,
-       try_cast(to_varchar(owner:"user_id") as bigint) as owner_user_id
+       try_cast(to_varchar(owner:"user_id") as bigint) as owner_user_id,
+       try_cast(to_varchar(owner:"accept_rate") as bigint) as accept_rate
 from {{ source('raw_stack_exchange_data', 'answers') }}

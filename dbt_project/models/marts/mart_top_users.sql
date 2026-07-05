@@ -6,8 +6,6 @@ select
   user_display_name,
   reputation,
   badge_counts_raw,
-  answers_count,
-  accepted_count,
-  accepted_answer_rate
+  accept_rate
 from {{ ref('int_user_stats') }}
 order by reputation desc, badge_counts_raw desc

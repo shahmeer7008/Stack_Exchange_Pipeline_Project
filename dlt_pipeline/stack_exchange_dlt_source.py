@@ -126,7 +126,7 @@ def make_resource(resource_name):
 def stack_exchange_source():
 
 
-    yield make_resource("users")
+    # yield make_resource("users")
 
     yield make_resource("questions")
 
