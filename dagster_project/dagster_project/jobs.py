@@ -1,5 +1,5 @@
 from dagster import define_asset_job
 
-stackexchange_job = define_asset_job(
-    name="stackexchange_job"
+stackexchange_pipeline_job = define_asset_job(
+    name="stackexchange_pipeline_job"
 )

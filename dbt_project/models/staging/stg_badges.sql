@@ -3,5 +3,7 @@
 select badge_id,
        name as badge_name,
        badge_type,
+       award_count,
+       Rank as badgeclass,
        cast(null as timestamp) as award_date
 from {{ source('raw_stack_exchange_data', 'badges') }}

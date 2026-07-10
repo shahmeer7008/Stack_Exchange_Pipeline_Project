@@ -15,17 +15,17 @@ RESOURCE_CONFIG = {
     "users": {
         "primary_key": "user_id",
         "cursor": "creation_date",
-        "sort": "creation"
+        "sort": "modified"
     },
     "questions": {
         "primary_key": "question_id",
-        "cursor": "creation_date",
-        "sort": "creation"
+        "cursor": "last_activity_date",
+        "sort": "activity"
     },
     "answers": {
         "primary_key": "answer_id",
-        "cursor": "creation_date",
-        "sort": "creation"
+        "cursor": "last_activity_date",
+        "sort": "activity"
     },
     "comments": {
         "primary_key": "comment_id",
@@ -83,7 +83,7 @@ def fetch_resource(resource_name, from_date=0):
 
         if "backoff" in data:
             logger.info(f"Sleeping {data['backoff']} seconds...")
-            time.sleep(data["backoff"])
+            time.sleep(data.get("backoff", 0) or 0.3)
 
         if not data.get("has_more", False):
             break
@@ -126,7 +126,7 @@ def make_resource(resource_name):
 def stack_exchange_source():
 
 
-    # yield make_resource("users")
+    yield make_resource("users")
 
     yield make_resource("questions")
 
