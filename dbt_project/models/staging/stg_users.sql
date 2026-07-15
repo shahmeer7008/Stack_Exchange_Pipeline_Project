@@ -1,5 +1,5 @@
 -- Staging model for raw users
-{{ config(materialized='view') }}
+{{ config(materialized='view',persist_docs={"relation": true, "columns": true}) }}
 select user_id as user_id,
        display_name as user_display_name,
        profile_image as profile_img,

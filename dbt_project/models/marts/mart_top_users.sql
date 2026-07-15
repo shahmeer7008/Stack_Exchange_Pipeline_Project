@@ -5,7 +5,6 @@ select
   user_id,
   user_display_name,
   reputation,
-  badge_counts_raw,
   accept_rate
 from {{ ref('int_user_stats') }}
-order by reputation desc, badge_counts_raw desc
+order by reputation desc, award_count desc

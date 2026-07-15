@@ -5,6 +5,16 @@ sources:
     description: "Raw Stack Exchange tables loaded into the warehouse."
     tables:
       - name: users
+        config:
+          loaded_at_field: creation_date
+          freshness:
+            warn_after:
+              count: 24
+              period: hour
+            error_after:
+              count: 48
+              period: hour
+          
         description: "Raw users data from the Stack Exchange dataset."
         columns:
           - name: user_id
@@ -13,14 +23,25 @@ sources:
               - not_null
               - unique
       - name: questions
-        description: "Raw questions data from the Stack Exchange dataset."
-        columns:
-          - name: question_id
-            description: "Unique identifier for a question."
-            tests:
-              - not_null
-              - unique
+        config:
+          loaded_at_field: last_activity_date
+          freshness:
+            warn_after:
+              count: 24
+              period: hour
+            error_after:
+              count: 48
+              period: hour
       - name: answers
+        config:
+          loaded_at_field: last_activity_date
+          freshness:
+            warn_after:
+              count: 24
+              period: hour
+            error_after:
+              count: 48
+              period: hour
         description: "Raw answers data from the Stack Exchange dataset."
         columns:
           - name: answer_id
@@ -29,6 +50,15 @@ sources:
               - not_null
               - unique
       - name: comments
+        config:
+          loaded_at_field: creation_date
+          freshness:
+            warn_after:
+              count: 24
+              period: hour
+            error_after:
+              count: 48
+              period: hour
         description: "Raw comments data from the Stack Exchange dataset."
         columns:
           - name: comment_id

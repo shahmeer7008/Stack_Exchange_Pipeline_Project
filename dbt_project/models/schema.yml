@@ -87,7 +87,7 @@ models:
     columns:
       - name: user_id
         tests: [not_null]
-
+        description: "user_id of the top contributing user."
   - name: mart_time_to_first_answer
     description: "Mart answering Q3: average time-to-first-answer per tag and month."
 

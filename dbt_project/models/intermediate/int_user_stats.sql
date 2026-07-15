@@ -11,7 +11,6 @@ select
   u.user_id,
   u.user_display_name,
   u.reputation,
-  u.badge_counts_raw,
   try_cast(to_varchar(a.accept_rate) as bigint) as accept_rate
 from {{ ref('stg_users') }} as u
 
